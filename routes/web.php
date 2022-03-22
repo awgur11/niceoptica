@@ -222,7 +222,7 @@ Route::get('/send-email', [SiteController::class, 'send_email'])->name('send.ema
 Route::get('/products/{id}-{alt_title}', [SiteController::class, 'products'])->name('products');
 
 Route::get('/products/{id_catalog}-{alt_catalog}/{id}-{alt_title}', [SiteController::class, 'product'])->name('product');
-
+/* some update */
 Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
 
 
