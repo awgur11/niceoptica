@@ -27,7 +27,7 @@ class UserController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+ 
         return back();
     }
 

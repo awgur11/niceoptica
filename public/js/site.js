@@ -1,3 +1,38 @@
+// валидация форм ajax перед отправкой
+$(document).on('submit', '.validate-form-ajax', function(e){
+
+    e.preventDefault();
+
+    var url = $(this).attr('action'),
+        data = $(this).serialize(),
+        form = $(this);
+
+    url += '/validate/ajax';
+
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: data,
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        error: function(response){
+
+            form.find('.input-error').addClass('d-none').text('is-invalid');
+            form.find('input').removeClass('is-invalid')
+
+            for(key in response.responseJSON.errors)
+            {
+                form.find('.input-error-' + key).text(response.responseJSON.errors[key]).removeClass('d-none');
+                form.find('input[name="' + key + '"]').addClass('is-invalid')
+            }
+            return false;
+            console.log(response.responseJSON.errors.name);
+             //  $('#' + formId + ' .input-error-email').text(response.errors.email).removeClass('d-none');
+        },
+        success: function(response){
+            form.removeClass('validate-form-ajax').submit();                
+        }
+    });
+});
 $(document).on('click', '.delete-item', function(){
   var confirmaion_q = 'Вы уверены что хотите удалить данный элемент?';
 

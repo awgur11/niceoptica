@@ -232,10 +232,10 @@ Route::any('order/success/{order_id}', [OrderController::class, 'success'])->nam
 Route::get('order/fail', [OrderController::class, 'fail'])->name('order.fail');
 Route::any('/order/liqpay/success', [OrderController::class, 'liqpay_success'])->name('liqpay.success');
 
-/* USER */
+/* USER */ 
 Route::get('user/socialtes/untie/{soc}', [UserController::class, 'untie'])->name('user.untie');
-Route::post('user/login', [UserController::class, 'login'])->name('user.login');
-Route::post('user/register', [UserController::class, 'register'])->name('user.register');
+//Route::post('user/login', [UserController::class, 'login'])->name('user.login');
+//Route::post('user/register', [UserController::class, 'register'])->name('user.register');
 Route::post('user/logout', [UserController::class, 'logout'])->name('user.logout');
 
  

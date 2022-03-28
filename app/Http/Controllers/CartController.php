@@ -262,8 +262,8 @@ class CartController extends Controller
 
     public function auth(Request $request)
     {
-    //    if(auth()->check())
-     //       return redirect()->route('cart.checkout');
+        if(auth()->check())
+            return redirect()->route('cart.checkout');
 
         $cart_arr = $this->corrent_cart_content($request);
 

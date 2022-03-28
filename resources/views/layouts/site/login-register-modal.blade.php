@@ -69,6 +69,7 @@
         $('#modal-body-login').removeClass('d-none');
         $('#modal-body-register').addClass('d-none');
     });
+
 </script>
 
 
@@ -84,11 +85,11 @@
 
       <!-- Modal body -->
             <div class="modal-body p-0">
-                <div id="modal-body-login">
+                <div id="modal-body-login" class="d-none">
                 <div id="modal-body-login-body">
 
                     <h4 class="modal-title text-center">@lang('Login to your personal account')</h4>
-                    <form action="{{ route('user.login') }}" method="POST">
+                    <form action="{{ route('user.login') }}" method="POST" >
                         @csrf
                         <div class="form-group">
                             <label for='name'>@lang('Email'):</label>
@@ -104,7 +105,7 @@
                         <input type="submit" style="padding:17px" class="btn btn-primary btn-block"   maxlength="50" placeholder="" value="@lang('Login')">
                     </form>
 
-                    <p class=" text-center">Or log in using social networks</p>
+                    <p class=" text-center">@lang('Or log in using social networks')</p>
                     <div class="my-2 text-center">
                         <a href="{{ route('redirect.to.facebook') }}" class="auth-modal-sb">
                             <img src="/images/facebook.png" alt="">
@@ -120,28 +121,36 @@
                 </div>
                 </div>
 
-                <div id="modal-body-register" class="d-none">
+                <div id="modal-body-register" >
                 <div id="modal-body-register-body">
 
                     <h4 class="modal-title text-center">@lang('Registration')</h4>
-                    <form action="{{ route('user.register') }}" method="POST">
+                    <form action="{{ route('user.register') }}" class="validate-form-ajax" method="POST" id="register-form">
                         @csrf
                         <div class="form-group">
                             <label for='name'>@lang('Name'):</label>
-                            <input type="email" class="form-control" name="email"  maxlength="50" placeholder="" required="true">
+                            <input type="text" class="form-control" name="name"  maxlength="50" placeholder="">
+                            <span class="d-none text-danger input-error input-error-name"></span>
                         </div>
                         <div class="form-group">
                             <label for='name'>@lang('Email'):</label>
-                            <input type="email" class="form-control" name="email"  maxlength="50" placeholder="" required="true">
+                            <input type="email" class="form-control" name="email"  maxlength="50" placeholder="">
+                            <span class="d-none text-danger input-error input-error-email"></span>
                         </div>
                         <div class="form-group">
                             <label for='password'>@lang('Password'):</label>
-                            <input type="password" class="form-control" name="password"  maxlength="50" placeholder="" required="true">
+                            <input type="password" class="form-control" name="password"  maxlength="50" placeholder="">
+                            <span class="d-none text-danger input-error input-error-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for='password'>@lang('Confirm password'):</label>
+                            <input type="password" class="form-control" name="password_confirmation"  maxlength="50" placeholder="">
+                            <span class="d-none text-danger input-error input-error-password_confirmation"></span>
                         </div>
                         <input type="submit" style="padding:17px" class="btn btn-primary btn-block"   maxlength="50" placeholder="" value="@lang('Register')">
                     </form>
                     <div style="position: relative;" class="mt-2">
-                        <input type="checkbox" id="policy-check" checked class="custom" name="register_me">
+                        <input type="checkbox" id="policy-check" checked class="custom" name="register_me" required>
                         <label for="policy-check">@lang('I agree to the processing of personal data'). {!! $policy_link !!}</label>
                     </div>
 

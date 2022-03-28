@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class CabinetController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function user_data()
     {
         return view('cabinet.user-data');

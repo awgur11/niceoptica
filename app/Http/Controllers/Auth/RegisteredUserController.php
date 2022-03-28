@@ -31,6 +31,15 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    public function validateForm(Request $request)
+    {
+        return $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -38,7 +47,7 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -46,9 +55,11 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-
+ 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::INDEX);
+        return back();
+
+     //   return redirect(RouteServiceProvider::INDEX);
     }
 }
