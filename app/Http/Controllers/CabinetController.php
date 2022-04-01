@@ -79,7 +79,7 @@ class CabinetController extends Controller
             'email' => $request->email
         ]);
 
-        return back()->with('message', 'Saved');
+        return back()->with('message', __('Saved'));
     }
 
     public function change_password(Request $request)

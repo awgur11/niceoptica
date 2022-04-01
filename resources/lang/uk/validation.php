@@ -12,6 +12,9 @@
 */
 
 return [
+    'email'                => 'Email address not found',
+    'password'             => 'Incorrect password',
+    'auth.failed'          => 'Неправильний логін або пароль',
     'accepted'             => 'Ви повинні прийняти :attribute.',
     'accepted_if'          => 'The :attribute must be accepted when :other is :value.',
     'active_url'           => 'Поле :attribute не є правильним URL.',

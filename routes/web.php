@@ -190,6 +190,9 @@ Route::get('/delivery/select-main/{id}', [DeliveryController::class, 'select_mai
 
 require __DIR__.'/auth.php';
 
+// проверка актуальности csrf-token
+Route::post('check-csrf-token', [SiteController::class, 'checkToken']);
+Route::post('lang', [SiteController::class, 'lang']);
 
 Route::group(['prefix' => config('csl'), 'middleware' => ['locale']], function(){
 
@@ -209,13 +212,13 @@ Route::get('/cart/get-price-params-block/{product_id}', [CartController::class, 
     Route::get('cabinet/delivery', [CabinetController::class, 'delivery'])->name('cabinet.user.delivery');
     Route::get('cabinet/orders', [CabinetController::class, 'orders'])->name('cabinet.user.orders');
     Route::get('cabinet/favorites', [CabinetController::class, 'favorites'])->name('cabinet.user.favorites');
-    Route::post('cabinet/change-password', [CabinetController::class, 'change_password'])->name('cabinet.change.password');
+//    Route::post('cabinet/change-password', [CabinetController::class, 'change_password'])->name('cabinet.change.password');
     Route::post('cabinet/change-user-data', [CabinetController::class, 'change_user_data'])->name('cabinet.change.user.data');
   
 Route::get('/', [SiteController::class, 'index'])->name('index');
 
 Route::get('/search/ajax', [SiteController::class, 'search_ajax'])->name('search.ajax');
-Route::get('/search', [SiteController::class, 'search'])->name('site.search');
+//Route::get('/search', [SiteController::class, 'search'])->name('site.search');
 
 Route::get('/send-email', [SiteController::class, 'send_email'])->name('send.email');
 
@@ -236,7 +239,7 @@ Route::any('/order/liqpay/success', [OrderController::class, 'liqpay_success'])-
 Route::get('user/socialtes/untie/{soc}', [UserController::class, 'untie'])->name('user.untie');
 //Route::post('user/login', [UserController::class, 'login'])->name('user.login');
 //Route::post('user/register', [UserController::class, 'register'])->name('user.register');
-Route::post('user/logout', [UserController::class, 'logout'])->name('user.logout');
+//Route::post('user/logout', [UserController::class, 'logout'])->name('user.logout');
 
  
 

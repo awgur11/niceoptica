@@ -11,17 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class RegisteredUserController extends Controller
+class UpdatePasswordController extends Controller
 {
     /**
      * Display the registration view.
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        return view('auth.register');
-    }
+
 
     /**
      * Handle an incoming registration request.
@@ -31,38 +28,29 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-/*
-    public function validateForm(Request $request)
-    {
-        return $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-    }
-    */
+    
     public function store(Request $request)
     {
+        if(auth()->user()->password != '')
+        {
+            if(!Hash::check($request->old_password, auth()->user()->password))
+            {
+                return response()->json(['message' => 'The given data was invalid.', 'errors' => ['old_password' => [__('auth.old_password')]]], 422);
+            }
+        }
+
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         if($request->has('ajaxValidate'))
             return response('OK', 200);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+        User::find(auth::id())->update([
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
- 
-        Auth::login($user);
-
-        return back();
+        return back()->with('message', __('Password was updated successfully'));
 
      //   return redirect(RouteServiceProvider::INDEX);
     }

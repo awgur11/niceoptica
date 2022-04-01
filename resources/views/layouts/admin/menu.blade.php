@@ -21,10 +21,10 @@
         <a href="{{ url('/') }}" class="nav-link"><i class="fas fa-binoculars"></i> Сайт</a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
+        <a href="{{ route('user.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
           <i class="fas fa-sign-out-alt"></i> Выход
         </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
           {{ csrf_field() }}
         </form>
       </li>

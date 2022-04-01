@@ -16,10 +16,28 @@ use \App\Http\Services\Justin;
 
 class SiteController extends Controller
 { 
+    public function lang(Request $request)
+    {
+        if($request->has('arr'))
+        {
+            $arr = $request->arr;
+
+            foreach($arr as $k => $w)
+                $arr[$k] = __($w);
+
+            return response()->json($arr, 200);
+        }
+    }
+    public function checkToken(Request $request)
+    {
+        return response('OK', 200);
+    }
+
     public function create_page()
     {
         return view('site.create-page');
     }
+
     public function index()
     {
      //   dd(Justin::call()->getCities('х'));
@@ -410,9 +428,12 @@ class SiteController extends Controller
            // 'area_items' => $area_items
         ]);
     }
-
+ 
     public function search_ajax(Request $request)
     {
+        if(!$request->has('string'))
+            return redirect('/')->with('error', __('search error'));
+
         $string = $request->input('string');
 
         if(trim($string) == null)
@@ -542,7 +563,7 @@ class SiteController extends Controller
     public function search(Request $request)
     {
         if(!$request->has('ss'))
-            return redirect('/')->with('error', 'Search error');
+            return redirect('/')->with('error', __('Search error'));
       
         $search = $request->input('ss');
 

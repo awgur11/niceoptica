@@ -131,7 +131,10 @@ $(function(){
        $('#search-ajax-desc-block #search-form').appendTo('#serch-ajax-mobile-place'); 
 
     $('#search-form .search-ajax-icon').click(function(){
-       $('#search-form form').submit();
+        {
+            if($('#search-input').val().trim() != '')
+                $('#search-form form').submit();
+        }
 
     });
 })
@@ -139,8 +142,10 @@ $(document).on('mouseleave', '#search-block-ajax', function(){
     $(this).removeClass('active');
 }); 
 $(document).on('focus, click', '#search-input', function(){
-    if($('#search-block-ajax').html() != '')
+    if($('#search-block-ajax').html().trim() != '')
+    {
         $('#search-block-ajax').addClass('active');
+    }
 });
 $(document).on('focusout', '#search-input', function(){
     setTimeout(hide_search_block, 500);
@@ -206,8 +211,10 @@ $(document).on('keyup', '#search-input', function(){
                 $('#search-block-ajax').append(products);
             }
 
-            if(products != '' && catalogs != '')
+            if(products != '' || catalogs != '')
                 $('#search-block-ajax').addClass('active');
+            else
+                $('#search-block-ajax').removeClass('active');
 
         },
         error: function(msg)

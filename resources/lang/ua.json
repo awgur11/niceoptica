@@ -303,4 +303,8 @@
 "Justin":"Джастін",
 "Success":"Успіх",
 "Error":"Помилка",
-"Register me on the site":"Зареєструйте мене на сайті"}
+"Register me on the site":"Зареєструйте мене на сайті",
+"This filter value will be used for google merchant":"Це значення фільтра буде використовуватися для продавця Google",
+"Confirm password":"Підтвердьте пароль",
+"Password was updated successfully" : "Пароль успешно обновлён",
+"Please reload the page" : "Перезавантажте сторінку"}

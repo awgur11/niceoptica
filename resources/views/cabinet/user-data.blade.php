@@ -20,10 +20,14 @@
 <div class="container-fluid">
 	<div class="row">
 @auth
+
         <div class="col-12 text-right">
-        	<div style="display: inline-block; font-size: 20px; font-family: Nunito Sans; cursor: pointer;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link"><i class="fas fa-sign-out-alt"></i> 
+        	<form action="{{ route('user.logout') }}" method="POST">
+        		@csrf               
+                <button type="submit" style="display: inline-block; font-size: 20px; font-family: Nunito Sans; cursor: pointer; border: none; background-color: transparent;" > <i class="fas fa-sign-out-alt"></i> 
         		@lang('Logout')
-            </div>
+        	   </button>
+            </form>
 
         </div>
     	<div class="col-md-6 col-lg-4">
@@ -31,7 +35,7 @@
 		@csrf 
 			<div class="form-group">
                 <label for='name'>@lang('Name'):</label>
-                <input type="text" class="form-control" name="name"  maxlength="50" placeholder="" required="true" value="{{ auth()->user()->name ?? null }}">
+                <input type="text" class="form-control" name="name"  maxlength="50" placeholder="" required value="{{ auth()->user()->name ?? null }}">
             </div>
 	    	<div class="form-group">
                 <label for='phone'>@lang('Phone number'):</label>
@@ -47,19 +51,22 @@
     </form>
 		</div>
 		<div class="col-md-6 col-lg-4">
-	<form method="POST" action="{{ route('cabinet.change.password') }}">
-		@csrf
+	<form method="POST" action="{{ route('update.password') }}" class="validate-form-ajax">
+	     @csrf
 			<div class="form-group">
                 <label for='old_password'>@lang('Old password'):</label>
                 <input type="password" class="form-control" name="old_password"  maxlength="50" placeholder="" required>
+                <span class="d-none text-danger input-error input-error-old_password"></span>
             </div>
 		    <div class="form-group">
                 <label for='phone'>@lang('New password'):</label>
-                <input type="password" class="form-control" name="new_password"  maxlength="50" placeholder="" required>
+                <input type="password" class="form-control" name="password"  maxlength="50" placeholder="" required>
+                <span class="d-none text-danger input-error input-error-password"></span>
             </div>
             <div class="form-group">
                 <label for='repeat_password'>@lang('Repeat password')</label>
-                <input type="password" class="form-control" name="repeat_password"  maxlength="50" required>
+                <input type="password" class="form-control" name="password_confirmation"  maxlength="50" placeholder="">
+                <span class="d-none text-danger input-error input-error-password_confirmation"></span>
 			</div>
 			<div class="mt-5 form-group mb-0">
             	<button class="btn btn-primary btn-block">@lang('Change password')</button>

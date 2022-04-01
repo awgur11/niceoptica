@@ -85,15 +85,16 @@
 
       <!-- Modal body -->
             <div class="modal-body p-0">
-                <div id="modal-body-login" class="d-none">
+                <div id="modal-body-login">
                 <div id="modal-body-login-body">
 
                     <h4 class="modal-title text-center">@lang('Login to your personal account')</h4>
-                    <form action="{{ route('user.login') }}" method="POST" >
+                    <form action="{{ route('user.login') }}" method="POST" class="validate-form-ajax">
                         @csrf
                         <div class="form-group">
                             <label for='name'>@lang('Email'):</label>
                             <input type="email" class="form-control" name="email"  maxlength="50" placeholder="" required="true">
+                            <span class="d-none text-danger input-error input-error-email"></span>
                             <div class="text-right">
                                 <a href="{{ route('password.request') }}">@lang('Forget password')?</a>
                             </div>
@@ -101,6 +102,7 @@
                         <div class="form-group">
                             <label for='password'>@lang('Password'):</label>
                             <input type="password" class="form-control" name="password"  maxlength="50" placeholder="" required="true">
+                            <span class="d-none text-danger input-error input-error-password"></span>
                         </div>
                         <input type="submit" style="padding:17px" class="btn btn-primary btn-block"   maxlength="50" placeholder="" value="@lang('Login')">
                     </form>
@@ -121,7 +123,7 @@
                 </div>
                 </div>
 
-                <div id="modal-body-register" >
+                <div id="modal-body-register" class="d-none">
                 <div id="modal-body-register-body">
 
                     <h4 class="modal-title text-center">@lang('Registration')</h4>

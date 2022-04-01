@@ -59,6 +59,7 @@ $(document).ready(function(){
 <!--
 <script src="{{ asset('js/vue.min.js') }}"></script>
 <script src="{{ asset('js/axios.js') }}"></script>-->
+
 </head>
 <style type="text/css">
   body{
@@ -78,7 +79,9 @@ $(document).ready(function(){
 }
 </style>
 <body>
- 
+
+@include('layouts.site.alerts-block')
+
 @include('layouts.site.adminzone-link')
 
 @include('layouts.site.store.add-to-cart-modal')
@@ -88,8 +91,6 @@ $(document).ready(function(){
 @include('layouts.site.callback-modal')
  
 @include('layouts.site.menu-store-fixed')
-
-@include('layouts.site.alerts-block')
 
 @yield('content')
 

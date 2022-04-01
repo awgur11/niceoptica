@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\UpdatePasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
@@ -17,15 +18,15 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest')->name('user.register');
 
-Route::post('/register/validate/ajax', [RegisteredUserController::class, 'validateForm'])
-                ->middleware('guest');
-
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
                 ->name('login');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest')->name('user.login');
+
+Route::post('/update-password', [UpdatePasswordController::class, 'store'])
+                ->middleware('auth')->name('update.password');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
@@ -64,4 +65,4 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
-                ->name('logout');
+                ->name('user.logout');

@@ -151,16 +151,13 @@
 	</div>
 @auth
     <div class="smb-logout-block p-3">
-    	<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-block text-muted">
-    	    <i class="icon-Sign-Out mr-2"></i> @lang('Sign out')
-    	</a>
-
+    	<form action="{{ route('user.logout') }}" method="POST">
+        	@csrf               
+            <button type="submit" style="display: inline-block; font-size: 14px; font-family: Nunito Sans; cursor: pointer; border: none; background-color: transparent;" > <i class="icon-Sign-Out mr-2"></i> @lang('Sign out')
+        	</button>
+        </form>
     </div>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
 @endauth
-
 	
 </div>
 <div id="side-menu-mobile-bg">

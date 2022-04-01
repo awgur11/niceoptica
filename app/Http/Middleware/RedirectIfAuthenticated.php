@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class RedirectIfAuthenticated
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming request. 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return back();//redirect(RouteServiceProvider::HOME);
             }
         }
 

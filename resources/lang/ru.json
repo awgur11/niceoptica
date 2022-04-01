@@ -619,4 +619,10 @@
 "If you did not request a password reset, no further action is required.":"Если вы не запрашивали сброс пароля, никаких дальнейших действий не требуется.",
 "Reset Password Notification":"Уведомление о сбросе пароля",
 "Forget password":"Забыли пароль",
-"Error 404":"Ошибка 404"}
+"Error 404":"Ошибка 404",
+"Password was updated successfully":"Пароль успешно обновлён",
+"This filter value will be used for google merchant":"Это значение фильтра будет использоваться для продавца Google.",
+"Justin":"Джастин",
+"Confirm password":"Подтвердить Пароль",
+"Register me on the site":"Зарегистрируйте меня на сайте",
+"Please reload the page" : "Пожалуйста, перезагрузите страницу"}

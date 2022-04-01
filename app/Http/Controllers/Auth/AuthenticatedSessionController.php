@@ -26,9 +26,13 @@ class AuthenticatedSessionController extends Controller
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
+    
     public function store(LoginRequest $request)
     {
         $request->authenticate();
+
+        if($request->has('ajaxValidate'))
+            return response('OK', 200);
 
         $request->session()->regenerate();
 

@@ -1,3 +1,54 @@
+// функция перевода строк на текуший язык сайта для js
+  //проверка актуальности токена перед отправкой формы
+$(document).on('submit', 'form', function(e){
+
+  if($(this).attr('method') == 'POST' && !$(this).hasClass('checked-token'))
+  {
+    e.preventDefault();
+    var form = $(this);
+
+    $.ajax({
+      method: 'POST',
+      url: '/check-csrf-token',
+   //   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      error: function(error){
+        var translate = lang(['Error', 'Please reload the page']);
+        myAlert('my-alert-error', translate[0], translate[1]);
+      },
+      success: function(){
+        form.addClass('checked-token').submit();
+        console.log('HI');
+      }
+    });
+  }
+});
+
+function lang(arr)
+{
+    var res = '';
+    $.ajax({
+        method: 'POST',
+        url: '/lang',
+        async: false,
+        data: {arr: arr},
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        success: function(data){
+            res = data;
+        }
+    });
+    return res;
+}
+
+function myAlert(type, title, message)
+{
+    var translate = lang([title, message]);
+
+    $('body').addClass('stop-scrolling');
+    $('.my-alert-bg').addClass('show');
+    $('.my-alert-header').removeClass('my-alert-error').removeClass('my-alert-message').addClass(type);
+    $('.my-alert-header .my-alert-title').text(translate[0]);
+    $('.my-alert-body').text(translate[1]);
+}
 // валидация форм ajax перед отправкой
 $(document).on('submit', '.validate-form-ajax', function(e){
 
@@ -7,7 +58,7 @@ $(document).on('submit', '.validate-form-ajax', function(e){
         data = $(this).serialize(),
         form = $(this);
 
-    url += '/validate/ajax';
+    data += '&ajaxValidate';
 
     $.ajax({
         method: 'POST',
@@ -460,9 +511,8 @@ $(document).on('click', '.add-to-cart-button', function(){
         });
     });
     /* AJAX PAGINATION*/
-        function progressBar(u, t)
+    function progressBar(u, t)
     {
-        
         $('#progress-bar-items').css('background', 'linear-gradient(to right, #2C50F2 ' + u/t*100 +'%, #F6F6F6 ' + u/t*100 +'%)');
     }
     $(function(){

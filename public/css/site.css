@@ -498,7 +498,7 @@ text-align: center;
         margin-bottom: 10px;
         color: #898989;
     }
-    .form-control{
+    .form-group .form-control{
         background: #FFFFFF;
         border: 1px solid #DCDCDC;
         border-radius: 0;
@@ -509,7 +509,9 @@ text-align: center;
         color: #202020;
         padding: 20px 16px 17px;
         min-height: 56px;
-
+    }
+    .form-group .form-control.is-invalid{
+        border-color: #d33;
     }
     /* COUNT BLOCK */
     .count-block{

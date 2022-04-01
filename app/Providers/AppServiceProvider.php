@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Language;
 use Illuminate\Support\Facades\Crypt;
-
+use Illuminate\Support\Facades\Hash;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         if($cart_content != null)
         {
             $cart_content = json_decode(explode("|",Crypt::decryptString($cart_content))[1], true);
-//dd($cart_content);
+
             if(is_array($cart_content))
             {
                 
