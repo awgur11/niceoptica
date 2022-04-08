@@ -22,11 +22,14 @@ class FacebookController extends Controller
 
         $user = User::where('facebook_id', $facebookUser->id)->orWhere('email', $facebookUser->email)->first();
 
+
+
         if ($user) {
+
             $user->update([
-                'Facebook_id' => $facebookUser->id,
-                'Facebook_token' => $facebookUser->token,
-                'Facebook_refresh_token' => $facebookUser->refreshToken,
+                'facebook_id' => $facebookUser->id,
+                'facebook_token' => $facebookUser->token,
+                'facebook_refresh_token' => $facebookUser->refreshToken,
             ]);
         } 
         else 

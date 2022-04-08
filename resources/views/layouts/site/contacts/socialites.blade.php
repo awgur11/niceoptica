@@ -45,13 +45,13 @@
 @foreach(['facebook','twitter','instagram','linkedin','youtube','google-plus', 'pinterest', 'telegram', 'viber', 'whatsapp', 'vimeo'] as $soc)
     @if(isset($site_option['socialites'][$soc]) && $site_option['socialites'][$soc] != null)
         @if($soc == 'telegram') 
-<a href="tg://resolve?domain={{ $site_option['socialites'][$soc] ?? null }}" target="_blank" class="hidden-md hidden-lg">
+<a  rel="nofollow" href="tg://resolve?domain={{ $site_option['socialites'][$soc] ?? null }}" target="_blank" class="hidden-md hidden-lg">
         @elseif($soc == 'viber')
         <a href="viber://contact?number={{ $site_option['socialites'][$soc] ?? null }}">
         @elseif($soc == 'whatsapp')
         <a tar href="https://api.whatsapp.com/send?phone={{ $site_option['socialites'][$soc] ?? null }}">
         @else
-<a  href="https://{{ $soc }}.com/{{ $site_option['socialites'][$soc] ?? null }}" target="_blank">
+<a  rel="nofollow"  href="https://{{ $soc }}.com/{{ $site_option['socialites'][$soc] ?? null }}" target="_blank">
         @endif
     <div class="socialite-item" data-toggle="tooltip" title="{{ $soc }}">
         <i class="fab fa-{{ $soc }}"></i>

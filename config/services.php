@@ -32,12 +32,12 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_SECRET_ID'),
-        'redirect' => 'https://awgur-showroom.in.ua/auth/google/callback',
+        'redirect' => 'https://niceoptica.com/auth/google/callback',
     ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_SECRET_ID'),
-        'redirect' => 'https://awgur-showroom.in.ua/auth/facebook/callback',
+        'redirect' => 'https://niceoptica.com/auth/facebook/callback',
     ],
 
 ];

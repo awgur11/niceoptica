@@ -20,20 +20,21 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController; 
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\NovaPochtaController;
 use App\Http\Controllers\JustinController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\FacebookController;
 
 
 
 Route::get('/auth/google/redirect', [GoogleController::class, 'redirectToGoogle'])->name('redirect.to.google');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
-Route::get('/auth/facebook/redirect', [GoogleController::class, 'redirectToFacebook'])->name('redirect.to.facebook');
-Route::get('/auth/facebook/callback', [GoogleController::class, 'handleFacebookCallback']);
+Route::get('/auth/facebook/redirect', [FacebookController::class, 'redirectToFacebook'])->name('redirect.to.facebook');
+Route::get('/auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
 
 
     

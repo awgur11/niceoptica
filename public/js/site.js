@@ -10,7 +10,7 @@ $(document).on('submit', 'form', function(e){
     $.ajax({
       method: 'POST',
       url: '/check-csrf-token',
-   //   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
       error: function(error){
         var translate = lang(['Error', 'Please reload the page']);
         myAlert('my-alert-error', translate[0], translate[1]);
