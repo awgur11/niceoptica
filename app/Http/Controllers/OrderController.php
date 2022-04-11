@@ -202,7 +202,7 @@ class OrderController extends Controller
         if($request->input('buy_one click', 0) != 0)
             return '';
 
-     //   Cookie::expire('cart');
+        Cookie::expire('cart');
 
         if($request->has('payment') && $request->payment == 1)
         {
