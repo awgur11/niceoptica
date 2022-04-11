@@ -13,6 +13,7 @@ use App\Http\Services\LiqPay;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Jobs\OrderSendEmail;
 
 
 class OrderController extends Controller
@@ -35,11 +36,22 @@ class OrderController extends Controller
 
         if(auth()->check())
         {
+            if($request->has('ajaxValidate'))
+                return response('OK', 200);
+
             $order['user_id'] = auth()->id();
             $user = auth()->user();
         }
         else
         {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+            ]);
+
+            if($request->has('ajaxValidate'))
+                return response('OK', 200);
+
             if($request->input('email') != null)
             {
                 $user = User::where('email', $request->email)->first();
@@ -76,7 +88,11 @@ class OrderController extends Controller
 
                 if($request->has('register_me') && $request->email != null)
                 {
-                    \Mail::to($request->email)->send(new \App\Mail\RegisterUser($user));
+                    try{
+                        \Mail::to($request->email)->send(new \App\Mail\RegisterUser($user));
+                    } catch(\Exception $e){
+                        Log::debug($e->getMessage());
+                    }
 
                     Auth::login($user);
                 }
@@ -153,18 +169,40 @@ class OrderController extends Controller
         {
             foreach(explode(',', $email_obj->value) as $email)
             { 
-                \Mail::to(trim($email))->send(new \App\Mail\OrderAdmin($cart_arr,  $loyalty_data['loyalty_percent'], $user, $delivery));
+                $details = [
+                    'email' => trim($email), 
+                    'cart_arr' => $cart_arr, 
+                    'loyalty_percent' => $loyalty_data['loyalty_percent'], 
+                    'user' => $user, 
+                    'delivery' => $delivery
+                ];
+
+                OrderSendEmail::dispatch($details, 'admin');
+
+      //         \Mail::to(trim($email))->send(new \App\Mail\OrderAdmin($cart_arr,  $loyalty_data['loyalty_percent'], $user, $delivery));
             }
         }
+
         if($user->email != null && strpos($user->email, 'fakeemail') === false)
-            \Mail::to($user->email)->send(new \App\Mail\OrderClient($cart_arr, $loyalty_data['loyalty_percent'], $user, $delivery));
+        {
+            $details = [
+                'email' => $user->email, 
+                'cart_arr' => $cart_arr, 
+                'loyalty_percent' => $loyalty_data['loyalty_percent'], 
+                'user' => $user, 
+                'delivery' => $delivery
+            ];
+            OrderSendEmail::dispatch($details, 'user');
+
+        //    \Mail::to($user->email)->send(new \App\Mail\OrderClient($cart_arr, $loyalty_data['loyalty_percent'], $user, $delivery));
+        }
 
         $order = Order::create($order);
 
         if($request->input('buy_one click', 0) != 0)
             return '';
 
-        Cookie::expire('cart');
+     //   Cookie::expire('cart');
 
         if($request->has('payment') && $request->payment == 1)
         {
@@ -189,6 +227,7 @@ class OrderController extends Controller
            //    dd($liqpay_button);
                return view('site.liqpay-page', ['liqpay_button' => $liqpay_button]);
             } catch( \Exception $e) {
+                Log::debug($e->getMessage());
                 return redirect()->route('order.cancel');     
             }
         }

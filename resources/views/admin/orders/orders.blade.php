@@ -94,7 +94,9 @@
           <tfoot>
             <tr>
               <td colspan="7" class="text-center">
-                {{ $orders->links() }}
+                <div class="d-flex justify-content-center">
+                  {{ $orders->onEachSide(0)->links('vendor.pagination.bootstrap-4')  }}
+                </div>
               </td>
             </tr>
           </tfoot>
@@ -141,22 +143,22 @@
           <ul>
 @if($order->delivery != null)
   @if($order->delivery->option != null)
-            <li>{{ $order->delivery->option }}</li>
+            <li><b>@lang('Delivery service'):</b> {{ $order->delivery->option }}</li>
   @endif
   @if($order->delivery->city != null)
-            <li>{{ $order->delivery->city }}</li>
+            <li><b>@lang('City'):</b> {{ $order->delivery->city }}</li>
   @endif
   @if($order->delivery->warehouse != null)
-            <li>{{ $order->delivery->warehouse }}</li>
+            <li><b>@lang('Warehouse'):</b> {{ $order->delivery->warehouse }}</li>
   @endif
   @if($order->delivery->street != null)
-            <li>{{ $order->delivery->street }}</li>
+            <li><b>@lang('Street'):</b> {{ $order->delivery->street }}</li>
   @endif
   @if($order->delivery->house != null)
-            <li>{{ $order->delivery->house }}</li>
+            <li><b>@lang('House'):</b> {{ $order->delivery->house }}</li>
   @endif
   @if($order->delivery->flat != null)
-            <li>{{ $order->delivery->flat }}</li>
+            <li><b>@lang('Flat'):</b> {{ $order->delivery->flat }}</li>
   @endif
 @endif
          </ul>

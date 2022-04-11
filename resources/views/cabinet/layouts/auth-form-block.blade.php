@@ -23,13 +23,14 @@
 </style>
 <div id="auth-user-form-block">
 	<h4>@lang('Log in to speed up the order')</h4>
-    <form action="{{ route('user.login') }}" method="POST">
+    <form action="{{ route('user.login') }}" method="POST" class="validate-form-ajax">
        	@csrf
-	    <div class="row">
+	    <div class="row"> 
 		    <div class="col-md-4">
 			    <div class="form-group">
                     <label for='name'>@lang('Email'):</label>
                     <input type="email" class="form-control" name="email"  maxlength="50" placeholder="" required="true">
+                    <span class="d-none text-danger input-error input-error-email"></span>
                 </div>
 		    </div>
 	        <div class="col-md-4">

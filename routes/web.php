@@ -162,7 +162,6 @@ Route::group(['prefix'=>'adminzone', 'middleware' => ['auth']], function(){
     Route::get('order/index', [OrderController::class, 'index'])->name('orders.index');
     Route::get('order/delete/{id}', [OrderController::class, 'destroy'])->name('orders.delete');
 
-    Route::get('cabinet/user-data', [CabinetController::class, 'user_data'])->name('cabinet.user.data');
 });
 
  
@@ -189,14 +188,16 @@ Route::post('/delivery/store', [DeliveryController::class, 'store'])->name('deli
 Route::get('/delivery/delete/{id}', [DeliveryController::class, 'delete'])->name('delivery.delete');
 Route::get('/delivery/select-main/{id}', [DeliveryController::class, 'select_main'])->name('delivery.select.main');
 
-require __DIR__.'/auth.php';
+
 
 // проверка актуальности csrf-token
 Route::post('check-csrf-token', [SiteController::class, 'checkToken']);
-Route::post('lang', [SiteController::class, 'lang']);
+
 
 Route::group(['prefix' => config('csl'), 'middleware' => ['locale']], function(){
-
+    // ajax перевод для js 
+Route::post('lang', [SiteController::class, 'lang']);
+require __DIR__.'/auth.php';
     /* CART */
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart/auth', [CartController::class, 'auth'])->name('cart.auth');
@@ -205,10 +206,10 @@ Route::get('/cart/content', [CartController::class, 'content'])->name('cart.cont
 Route::get('/cart/change-count', [CartController::class, 'change_count'])->name('cart.change_count');       
 Route::get('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
 Route::get('/cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::get('/cart/get-price-params-block/{product_id}', [CartController::class, 'get_data_for_cart_modal'])->name('cart.add');
+Route::get('/cart/get-price-params-block/{product_id}', [CartController::class, 'get_data_for_cart_modal'])->name('cart.add.modal'); 
 
 /* CABINET*/
-    Route::get('cabinet/user-data', [CabinetController::class, 'user_data'])->name('cabinet.user.data');
+    Route::get('cabinet/user-data', [CabinetController::class, 'user_data'])->name('cabinet.user.data'); 
     Route::get('cabinet/loyalty', [CabinetController::class, 'loyalty'])->name('cabinet.user.loyalty');
     Route::get('cabinet/delivery', [CabinetController::class, 'delivery'])->name('cabinet.user.delivery');
     Route::get('cabinet/orders', [CabinetController::class, 'orders'])->name('cabinet.user.orders');

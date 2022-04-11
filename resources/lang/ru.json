@@ -593,7 +593,7 @@
 "Newss":"Новости",
 "Continue without authorization":"Продолжить без авторизации",
 "Contact details":"Контактная информация",
-"Have an account":"Иметь аккаунт",
+"Have an account":"Имеете аккаунт",
 "Your data":"Ваши данные",
 "Upon receipt":"По получении",
 "Online":"онлайн",
@@ -625,4 +625,5 @@
 "Justin":"Джастин",
 "Confirm password":"Подтвердить Пароль",
 "Register me on the site":"Зарегистрируйте меня на сайте",
-"Please reload the page" : "Пожалуйста, перезагрузите страницу"}
+"Please reload the page" : "Пожалуйста, перезагрузите страницу",
+"You have registered on the site" : "Вы зарегистрировались на сайте"}

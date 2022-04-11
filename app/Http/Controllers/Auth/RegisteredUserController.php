@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
@@ -58,7 +59,16 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        $user->real_password = $request->password;
+
+ 
+       // event(new Registered($user));
+
+        try{
+            \Mail::to($request->email)->send(new \App\Mail\RegisterUser($user));
+        } catch(\Exception $e){
+            Log::debug($e->getMessage());
+        }
  
         Auth::login($user);
 

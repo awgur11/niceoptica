@@ -55,7 +55,7 @@
 
 	})
 </script>
-<form action="{{ route('order.store') }}" method="POST" onkeydown="return event.key != 'Enter';">
+<form action="{{ route('order.store') }}" method="POST" onkeydown="return event.key != 'Enter';"  class="validate-form-ajax">
     @csrf
 <div class="container-fluid">
 	<div class="row">
@@ -76,7 +76,8 @@
     				<div class="col-md-6 mt-3 pl-0">
     					<div class="form-group">
                             <label for='name'>@lang('Name'):</label>
-                            <input type="text" class="form-control" name="name"  maxlength="50" placeholder="" required="true">
+                            <input type="text" class="form-control" name="name"  maxlength="50" placeholder="" required>
+                            <span class="d-none text-danger input-error input-error-name"></span>
                         </div>
     				</div>
     				<div class="col-md-6 mt-3 pl-0">
@@ -94,7 +95,8 @@
     				<div class="col-md-6 mt-3 pl-0">
     					<div class="form-group">
                             <label for='phone'>@lang('Phone number'):</label>
-                            <input type="text" class="form-control send-phone" name="phone"  maxlength="50" placeholder="" required="true">
+                            <input type="text" class="form-control send-phone" name="phone"  maxlength="50" placeholder="" >
+                            <span class="d-none text-danger input-error input-error-phone"></span>
                         </div>
     				</div>
     			</div>    			
